@@ -11,6 +11,7 @@ services:
       dockerfile: Dockerfile
       target: test
   release:
+    image: 710749094414.dkr.ecr.us-east-1.amazonaws.com/ieuancasey/todobackend
     build:
       context: .
       dockerfile: Dockerfile
@@ -25,6 +26,7 @@ services:
       - --module=todobackend.wsgi
       - --master
   app:
+    image: 710749094414.dkr.ecr.us-east-1.amazonaws.com/ieuancasey/todobackend
     extends:
       service: release
     depends_on:

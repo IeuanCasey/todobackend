@@ -1,6 +1,7 @@
-.PHONY: test release clean version
+.PHONY: test release clean version login logout publish
 
 export APP_VERSION ?= $(shell git rev-parse --short HEAD)
+export AWS_PROFILE ?= ieuancasey
 
 test:
 	docker-compose build --pull release
@@ -16,3 +17,9 @@ clean:
 	docker images -q -f dangling=true -f label=application=todobackend | xargs -I ARGS docker rmi -f --no-prune ARGS
 version:
 	@ echo '{ "Version": "$(APP_VERSION)" }'
+login:
+	$$(aws ecr get-login --no-include-email)
+logout:
+	docker logout https://710749094414.dkr.ecr.us-east-1.amazonaws.com/ieuancasey/todobackend
+publish:
+	docker-compose push release app
