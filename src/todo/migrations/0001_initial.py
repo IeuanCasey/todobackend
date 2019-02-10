@@ -19,6 +19,7 @@ class Migration(migrations.Migration):
                 ('completed', models.BooleanField(default=False)),
                 ('url', models.CharField(blank=True, max_length=256, null=True)),
                 ('order', models.IntegerField(blank=True, null=True)),
+                ('priority', models.IntegerField(blank=True, null=True)),
             ],
         ),
     ]
