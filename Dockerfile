@@ -29,7 +29,7 @@ FROM alpine
 LABEL application=todobackend
 
 # Install operating system dependencies.
-RUN apk add --no-cache python3 mariadb-client bash curl bats jq
+RUN apk add --no-cache python3 mariadb-client bash curl bats jq && pip3 --no-cache-dir install awscli
 
 # Create app user.
 RUN addgroup -g 1000 app && adduser -u 1000 -G app -D app
@@ -44,6 +44,11 @@ RUN rm -rf /build
 RUN mkdir /public
 RUN chown app:app /public
 VOLUME /public
+
+# Entrypoint script
+COPY entrypoint.sh /usr/bin/entrypoint
+RUN chmod +x /user/bin/entrypoint
+ENTRYPOINT ["/user/bin/entrypoint"]
 
 # Set working directory and application user.
 WORKDIR /app
